@@ -1,0 +1,2 @@
+E:\0Projects\UserListener\UserListener\bin\Debug
+E:\0Projects\UserListener\UserListener\bin\Release

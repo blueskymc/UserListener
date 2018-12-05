@@ -56,6 +56,12 @@
     <Compile Include="FormShowMessage.Designer.cs">
       <DependentUpon>FormShowMessage.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormShowTotal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormShowTotal.Designer.cs">
+      <DependentUpon>FormShowTotal.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +80,9 @@
     <Compile Include="XmlHelper.cs" />
     <EmbeddedResource Include="FormShowMessage.resx">
       <DependentUpon>FormShowMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormShowTotal.resx">
+      <DependentUpon>FormShowTotal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

@@ -1,1 +1,13 @@
 E:\Projects\UserListener\UserListener\bin\Release\UserListener.exe.config
+E:\0Projects\UserListener\UserListener\bin\Release\UserListener.exe.config
+E:\0Projects\UserListener\UserListener\bin\Release\UserListener.exe
+E:\0Projects\UserListener\UserListener\bin\Release\UserListener.pdb
+E:\0Projects\UserListener\UserListener\obj\Release\UserListener.FormShowMessage.resources
+E:\0Projects\UserListener\UserListener\obj\Release\UserListener.FormShowTotal.resources
+E:\0Projects\UserListener\UserListener\obj\Release\UserListener.LoginForm.resources
+E:\0Projects\UserListener\UserListener\obj\Release\UserListener.MainForm.resources
+E:\0Projects\UserListener\UserListener\obj\Release\UserListener.Properties.Resources.resources
+E:\0Projects\UserListener\UserListener\obj\Release\UserListener.csproj.GenerateResource.cache
+E:\0Projects\UserListener\UserListener\obj\Release\UserListener.csproj.CoreCompileInputs.cache
+E:\0Projects\UserListener\UserListener\obj\Release\UserListener.exe
+E:\0Projects\UserListener\UserListener\obj\Release\UserListener.pdb

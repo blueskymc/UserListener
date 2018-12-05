@@ -19,6 +19,7 @@ namespace UserListener
         private DateTime start;
         private bool ff = true;
         private string StopTime;
+        private double timeLogOut;
 
         public LoginForm()
         {
@@ -30,12 +31,17 @@ namespace UserListener
             y = Control.MousePosition.Y;
 
             this.timer2.Interval = 1000;
+            timeLogOut = getLogoutTime();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             user = new User();
             user.Name = textBoxUser.Text;
+            //if (user.Name.Equals("admin", StringComparison.OrdinalIgnoreCase))
+            //{
+            //    return;
+            //}
             fileName = user.Name + ".bin";
             if (File.Exists(fileName))
             {
@@ -55,6 +61,11 @@ namespace UserListener
             }
             else
             {
+                //if (string.IsNullOrEmpty(textBoxPwd.Text))
+                //{
+                //    MessageBox.Show("密码不能为空");
+                //    return;
+                //}
                 user.Password = textBoxPwd.Text;
                 LoginInfo info = new LoginInfo();
                 info.LoginTime = DateTime.Now.ToString();
@@ -118,15 +129,17 @@ namespace UserListener
 
             TimeSpan ts = DateTime.Now.Subtract(start);
 
-            if (ts.Seconds >= 10)
+            if (ts.Minutes >= timeLogOut)
             {
                 timer2.Stop();
-                StopTime = DateTime.Now.AddSeconds(-10).ToString();
+                StopTime = DateTime.Now.AddMinutes(-timeLogOut).ToString();
                 user.RestCount++;
                 BinaryHelper.BinaryFileSave(fileName, user);
                 ff = true;
                 showWindow();
-                DialogResult result = MessageBox.Show("您已休息15分钟，并记录到档案，请抓紧学习！\n点击确定后重新登录，培训时间重新计时！", "学习提醒", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string msg = string.Format("您已休息{0}分钟，并记录到档案，请抓紧学习！\n点击确定后重新登录，培训时间重新计时！",
+                    timeLogOut);
+                DialogResult result = MessageBox.Show(msg, "学习提醒", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 if (result == DialogResult.OK)
                 {
@@ -144,6 +157,28 @@ namespace UserListener
             {
                 ShowWindow(p[0].MainWindowHandle, 1);
             }
+        }
+
+        private double getLogoutTime()
+        {
+            double t = 10;
+            try
+            {
+                using (StreamReader sr = new StreamReader("配置.ini", System.Text.Encoding.Default))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        if (line.StartsWith("登出分钟数"))
+                        {
+                            string time = line.Substring(line.IndexOf("=") + 1);
+                            t = double.Parse(time);
+                        }
+                    }
+                }
+            }
+            catch { }
+            return t;
         }
     }
 }
