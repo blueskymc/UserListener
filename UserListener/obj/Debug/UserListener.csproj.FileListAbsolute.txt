@@ -28,7 +28,6 @@ E:\0Projects\UserListener\UserListener\obj\Debug\UserListener.LoginForm.resource
 E:\0Projects\UserListener\UserListener\obj\Debug\UserListener.MainForm.resources
 E:\0Projects\UserListener\UserListener\obj\Debug\UserListener.Properties.Resources.resources
 E:\0Projects\UserListener\UserListener\obj\Debug\UserListener.csproj.GenerateResource.cache
-E:\0Projects\UserListener\UserListener\obj\Debug\UserListener.csproj.CoreCompileInputs.cache
 E:\0Projects\UserListener\UserListener\obj\Debug\UserListener.exe
 E:\0Projects\UserListener\UserListener\obj\Debug\UserListener.pdb
 E:\0Projects\UserListener\UserListener\obj\Debug\UserListener.FormShowTotal.resources

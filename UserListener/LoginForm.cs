@@ -15,6 +15,8 @@ namespace UserListener
 
         private User user;
         private string fileName;
+        private string lockFileName;
+        private FileStream fsLock;
         private int x, y;
         private DateTime start;
         private bool ff = true;
@@ -43,8 +45,14 @@ namespace UserListener
             //    return;
             //}
             fileName = user.Name + ".bin";
+            lockFileName = fileName + ".lock";
             if (File.Exists(fileName))
             {
+                if(File.Exists(lockFileName))
+                {
+                    MessageBox.Show("此用户已登录，请注销后再登录");
+                    return;
+                }
                 user = BinaryHelper.FileToObject(fileName);
                 if (user.Password.Equals(textBoxPwd.Text))
                 {
@@ -52,6 +60,7 @@ namespace UserListener
                     info.LoginTime = DateTime.Now.ToString();
                     info.LogoffTime = info.LoginTime;
                     user.Logs.Add(info);
+                    fsLock = File.Create(lockFileName);
                 }
                 else
                 {
@@ -72,6 +81,7 @@ namespace UserListener
                 info.LogoffTime = info.LoginTime;
                 user.Logs.Add(info);
                 BinaryHelper.BinaryFileSave(fileName, user);
+                fsLock = File.Create(lockFileName);
                 MessageBox.Show("已创建新学员：" + user.Name + "；请牢记密码：" + user.Password);
             }
             this.Visible = false;
@@ -93,6 +103,12 @@ namespace UserListener
                 user.Logs[user.Logs.Count - 1].LogoffTime = DateTime.Now.ToString();
             }
             BinaryHelper.BinaryFileSave(fileName, user);
+            if (File.Exists(lockFileName))
+            {
+                if (fsLock != null)
+                    fsLock.Close();
+                File.Delete(lockFileName);
+            }
             this.textBoxUser.Clear();
             this.textBoxPwd.Clear();
             this.Visible = true;

@@ -69,5 +69,23 @@ namespace UserListener
 
         public LoginInfo()
         { }
+
+        public TimeSpan Duration
+        {
+            get
+            {
+                DateTime dtIn = DateTime.Parse(this.LoginTime);
+                DateTime dtOff;
+                try
+                {
+                    dtOff = DateTime.Parse(this.LogoffTime);
+                }
+                catch
+                {
+                    dtOff = dtIn;
+                }
+                return dtOff.Subtract(dtIn).Duration();
+            }
+        }
     }
 }

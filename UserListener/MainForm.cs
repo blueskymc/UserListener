@@ -13,12 +13,23 @@ namespace UserListener
     public partial class MainForm : Form
     {
         public event EventHandler FormClose;
+        private User currentUser;
 
         public MainForm(User user, LoginForm logForm)
         {
             InitializeComponent();
+            currentUser = user;
             if (user.Name.Equals("admin", StringComparison.OrdinalIgnoreCase))
+            {
                 button1.Visible = true;
+                btnAllUserLog.Visible = true;
+                btnSavePersonalLog.Visible = false;
+            }
+            else
+            {
+                button1.Visible = false;
+                btnSavePersonalLog.Visible = false;
+            }
             this.labelUser.Text = string.Format("当前登录用户：{0}", user.Name);
             TimeSpan ts = user.LogTime;
             this.labelInfo.Text = string.Format("{0}累计登录时间：{1}天{2}小时{3}分{4}秒",
@@ -187,6 +198,74 @@ namespace UserListener
                 return fileList;
             }
             return null;
+        }
+
+        private void btnSavePersonalLog_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string fileName = string.Format("{0}的上机记录.csv", currentUser.Name);
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "excel files (*.csv)|*.csv|All files (*.*)|*.*";
+                saveFileDialog1.FilterIndex = 1;
+                saveFileDialog1.RestoreDirectory = true;
+                saveFileDialog1.FileName = fileName;
+
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    using (StreamWriter sw = new StreamWriter(saveFileDialog1.FileName, false, Encoding.Default))
+                    {
+                        sw.WriteLine("学员,登录时间,注销时间,登录时长(秒)");
+                        List<string> list = new List<string>();
+                        foreach (var info in currentUser.Logs)
+                        {
+                            sw.WriteLine(string.Format("{0},{1},{2},{3}",
+                                currentUser.Name, info.LoginTime, info.LogoffTime, info.Duration.Seconds));
+                        }
+                    }
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnAllUserLog_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string allUserLogFileName = "所有人上机记录.csv";
+                using (StreamWriter sw = new StreamWriter(allUserLogFileName, false, Encoding.Default))
+                {
+                    sw.WriteLine("学员,登录时间,注销时间,登录时长(秒)");
+                    List<User> allUsers = new List<User>();
+                    string fileName = "path.txt";
+                    if (File.Exists(fileName))
+                        using (StreamReader sr = new StreamReader(fileName))
+                        {
+                            string line;
+                            while ((line = sr.ReadLine()) != null)
+                            {
+                                allUsers.AddRange(getUsersByPath(line));
+                            }
+                        }
+                    foreach (var u in allUsers)
+                    {
+                        foreach (var info in u.Logs)
+                        {
+                            sw.WriteLine(string.Format("{0},{1},{2},{3}",
+                                u.Name, info.LoginTime, info.LogoffTime, info.Duration.Seconds));
+                        }
+                    }
+                }
+                MessageBox.Show("文件已保存在：" + allUserLogFileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

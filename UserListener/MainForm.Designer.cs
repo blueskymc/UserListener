@@ -37,6 +37,8 @@
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button1 = new System.Windows.Forms.Button();
+            this.btnSavePersonalLog = new System.Windows.Forms.Button();
+            this.btnAllUserLog = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelUser
@@ -102,11 +104,35 @@
             this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // btnSavePersonalLog
+            // 
+            this.btnSavePersonalLog.Location = new System.Drawing.Point(278, 33);
+            this.btnSavePersonalLog.Name = "btnSavePersonalLog";
+            this.btnSavePersonalLog.Size = new System.Drawing.Size(113, 23);
+            this.btnSavePersonalLog.TabIndex = 5;
+            this.btnSavePersonalLog.Text = "统计本人上机记录";
+            this.btnSavePersonalLog.UseVisualStyleBackColor = true;
+            this.btnSavePersonalLog.Visible = false;
+            this.btnSavePersonalLog.Click += new System.EventHandler(this.btnSavePersonalLog_Click);
+            // 
+            // btnAllUserLog
+            // 
+            this.btnAllUserLog.Location = new System.Drawing.Point(127, 12);
+            this.btnAllUserLog.Name = "btnAllUserLog";
+            this.btnAllUserLog.Size = new System.Drawing.Size(131, 23);
+            this.btnAllUserLog.TabIndex = 6;
+            this.btnAllUserLog.Text = "统计所有人上机记录";
+            this.btnAllUserLog.UseVisualStyleBackColor = true;
+            this.btnAllUserLog.Visible = false;
+            this.btnAllUserLog.Click += new System.EventHandler(this.btnAllUserLog_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(403, 354);
+            this.Controls.Add(this.btnAllUserLog);
+            this.Controls.Add(this.btnSavePersonalLog);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.labelRest);
             this.Controls.Add(this.labelInfo);
@@ -133,5 +159,7 @@
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSavePersonalLog;
+        private System.Windows.Forms.Button btnAllUserLog;
     }
 }

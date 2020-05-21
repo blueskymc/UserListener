@@ -1,0 +1,5 @@
+*.csv
+*.suo
+[Dd]ebug*/*
+[Rr]elease*/*
+/bin/
